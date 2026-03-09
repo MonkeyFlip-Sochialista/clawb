@@ -161,14 +161,14 @@
         </div>
 
         <div class="flex flex-col items-end gap-2 text-right">
-            <div class="stats-chip text-pink-500">STATUS: MASTER_SYNC_READY</div>
+            <div class="stats-chip text-pink-500">STATUS: OPENCLOW_MASTER_ACTIVE</div>
             <div id="file-timestamp" class="stats-chip text-white font-bold border-white/20">FILE_SYNC: --:--</div>
         </div>
     </header>
 
     <main class="max-w-[1800px] mx-auto relative z-10 px-6">
         <div id="deployment-info" class="update-banner">
-            FILE_UPLOAD_TIME: <span id="deploy-time">09/03/2026 13:40:42</span>
+            FILE_UPLOAD_TIME: <span id="deploy-time">09/03/2026 13:42:28</span>
         </div>
 
         <div id="cube-grid" class="cube-grid">
@@ -186,54 +186,53 @@
     </footer>
 
     <script>
-        // BACKUP DATA INYECTADO PARA SOPORTE file:// (Primeras 100 noticias)
+        // BACKUP DATA INYECTADO - CARGA MASIVA (200 ITEMS PARA MODO OFFLINE)
         const BACKUP_DATA = {
-            "lastUpdated": "2026-03-09T12:39:35.161Z",
-            "deploymentTime": "09/03/2026 13:40:12",
+            "deploymentTime": "09/03/2026 13:42:28",
             "liveTrends": [
-                {
-                    "title": "OpenClow Network: Real-time global intelligence node activated",
-                    "summary": "Nivel de seguridad Alpha detectado en el nodo central.",
-                    "source": "openclow.internal",
-                    "link": "#",
-                    "category": "OpenClow",
-                    "important": true,
-                    "openClow": true
-                },
-                {
-                    "title": "Azure AI Search vs. Manticore Search",
-                    "source": "manticoresearch.com",
-                    "link": "https://manticoresearch.com/blog/azure-ai-search-vs-manticore/",
-                    "category": "Azure",
-                    "important": false,
-                    "openClow": false
-                },
-                {
-                    "title": "Show HN: Azdo – A TUI for Azure DevOps",
-                    "source": "github.com",
-                    "link": "https://github.com/Elpulgo/azdo/",
-                    "category": "Azure",
-                    "important": false,
-                    "openClow": false
-                },
-                {
-                    "title": "NPM CLI for Azure DevOps Boards with AI Support",
-                    "source": "npmjs.com",
-                    "link": "https://www.npmjs.com/package/adoboards",
-                    "category": "Azure",
-                    "important": false,
-                    "openClow": false
-                },
-                {
-                    "title": "European users can now run a disconnected Azure Local service",
-                    "source": "techradar.com",
-                    "link": "https://www.techradar.com/pro/european-users-can-now-run-a-fully-disconnected-azure-local-service-with-no-cloud-connectivity",
-                    "category": "Azure",
-                    "important": true,
-                    "openClow": false
-                }
+                { "title": "OpenClow Network: Real-time global intelligence node activated", "category": "OpenClow", "openClow": true, "important": true, "link": "#", "source": "openclow.internal" },
+                { "title": "Digital Sovereignty in the Age of OpenClow Architectures", "category": "OpenClow", "openClow": true, "important": true, "link": "#", "source": "openclow.internal" },
+                { "title": "Azure AI Search vs. Manticore Search", "source": "manticoresearch.com", "link": "https://manticoresearch.com/blog/azure-ai-search-vs-manticore/", "category": "Azure" },
+                { "title": "Show HN: Azdo – A TUI for Azure DevOps", "source": "github.com", "link": "https://github.com/Elpulgo/azdo", "category": "Azure" },
+                { "title": "NPM CLI for Azure DevOps Boards with AI Support", "source": "npmjs.com", "link": "https://www.npmjs.com/package/adoboards", "category": "Azure" },
+                { "title": "Tell HN: Azure Data Factory pipeline execution delays", "source": "news.ycombinator.com", "link": "https://news.ycombinator.com/item?id=47283742", "category": "Azure" },
+                { "title": "Show HN: Khaga – AI Infrastructure Diagnosis", "source": "khaga.dev", "link": "https://khaga.dev", "category": "Azure" },
+                { "title": "10M live price points from AWS, Azure and GCP", "source": "infracost.io", "link": "https://www.infracost.io/blog/infracost-now-tracks-10-million-cloud-service-skus/", "category": "Azure" },
+                { "title": "Microsoft Expands Starlink Alliance to Grow Azure", "source": "yahoo.com", "link": "#", "category": "Azure" },
+                { "title": "European users can now run disconnected Azure Local", "source": "techradar.com", "link": "#", "category": "Azure", "important": true },
+                { "title": "CleanCloud – 20 rules to find what's costing money", "source": "news.ycombinator.com", "link": "#", "category": "Azure" },
+                { "title": "Making MCP Servers Work with Entra ID on Azure", "source": "ignitionai.xyz", "link": "#", "category": "Azure" },
+                { "title": "Show HN: Fast TUI for Azure Key Vault secrets", "source": "github.com", "link": "#", "category": "Azure" },
+                { "title": "MariaDB Cloud BYOA inside Azure subscription", "source": "mariadb.com", "link": "#", "category": "Azure" },
+                { "title": "Cloud-cost-CLI – Find cloud waste in AWS/Azure", "source": "github.com", "link": "#", "category": "Azure" },
+                { "title": "Code signing Windows apps with Azure Artifact", "source": "devclass.com", "link": "#", "category": "Azure" },
+                { "title": "Azure Document Intelligence at scale: what broke", "source": "invofox.com", "link": "#", "category": "Azure" },
+                { "title": "Microsoft's Azure Linux repository overview", "source": "github.com", "link": "#", "category": "Azure" },
+                { "title": "Ask HN: Is Azure DevOps Effectively EOL?", "source": "news.ycombinator.com", "link": "#", "category": "Azure" },
+                { "title": "Show HN: Tfstate-audit – search/diff Terraform state", "source": "github.com", "link": "#", "category": "Azure" },
+                { "title": "MLShip – Deploy Streamlit ML apps in 60s", "source": "knowza.ai", "link": "#", "category": "AWS" },
+                { "title": "AWS Deep Dives – Amazon SNS Service", "source": "localstack.cloud", "link": "#", "category": "AWS" },
+                { "title": " Iranians news service claims drone strikes on AWS", "source": "theregister.com", "link": "#", "category": "AWS" },
+                { "title": "We Moved from AWS to Hetzner. Cut Costs 89%", "source": "medium.com", "link": "#", "category": "AWS" },
+                { "title": "Amazon says Anthropic's Claude still OK for AWS", "source": "cnbc.com", "link": "#", "category": "AWS" },
+                { "title": "Kubernetes: The State of Open Source in 2026", "category": "Kubernetes", "source": "k8s.io" },
+                { "title": "Docker Desktop vs Colima for local development", "category": "Docker", "source": "medium.com" },
+                { "title": "Rust Lang: Why the gaming industry is switching", "category": "Rust", "source": "rust-lang.org" },
+                { "title": "PostgreSQL 18: What to expect from the next release", "category": "PostgreSQL", "source": "postgres.org" },
+                { "title": "Cybersecurity: Zero Trust in the OpenClow era", "category": "OpenClow", "openClow": true, "source": "openclow.internal" }
             ]
         };
+
+        // Simular mas datos de respaldo (repetidos para ver volumen)
+        for (let i = 0; i < 150; i++) {
+            BACKUP_DATA.liveTrends.push({
+                "title": `Intelligence Node #${i + 100}: Monitoring Global Systems...`,
+                "category": i % 3 === 0 ? "OpenClow" : "Intel",
+                "openClow": i % 3 === 0,
+                "source": "node-x.internal",
+                "link": "#"
+            });
+        }
 
         let fullData = [];
 
@@ -242,24 +241,23 @@
             const grid = document.getElementById('cube-grid');
 
             try {
-                // El error ocurre porque fetch() no funciona en file:// sin servidor local
+                // Intento de carga dinámica (Funcionará en GitHub Pages o servidor local)
                 const response = await fetch('updates.json?t=' + Date.now());
-                if (!response.ok) throw new Error("Sync Failed");
+                if (!response.ok) throw new Error("Local File Protocol");
                 const data = await response.json();
 
                 fullData = data.liveTrends || [];
+                console.log(`Cargados ${fullData.length} nodos dinámicamente.`);
 
                 if (data.deploymentTime) document.getElementById('deploy-time').innerText = data.deploymentTime;
                 if (data.lastUpdated) {
                     const date = new Date(data.lastUpdated);
                     document.getElementById('file-timestamp').innerText = `LAST_SYNC: ${date.toLocaleString('es-ES')}`;
                 }
-
-                console.log("Sincronización dinámica exitosa.");
             } catch (err) {
-                console.warn("Fallo en sincronización dinámica (Protocolo file:// detectado). Usando Inteligencia Residente.");
+                // MODO SEGURO: Carga los datos inyectados si fallamos (Como al abrir file://)
+                console.warn("Usando Inteligencia Residente (Modo Offline).");
                 fullData = BACKUP_DATA.liveTrends;
-                document.getElementById('deploy-time').innerText = BACKUP_DATA.deploymentTime;
                 document.getElementById('file-timestamp').innerText = "RESIDENT_MODE";
             }
 
@@ -272,14 +270,14 @@
             const grid = document.getElementById('cube-grid');
             const html = items.map(item => {
                 const target = item.link && item.link !== '#' ? item.link : `https://www.google.com/search?q=${encodeURIComponent(item.title)}`;
-                const isOC = item.openClow === true || item.title.toLowerCase().includes('openclow');
+                const isOC = item.openClow === true || (item.title && item.title.toLowerCase().includes('openclow'));
 
                 return `
                 <div class="cube ${isOC ? 'openclow-item' : ''}" onclick="window.open('${target}', '_blank')">
                     <div class="cube-category">${item.category || 'INTEL'}</div>
                     <div class="cube-title">${item.title}</div>
                     <div class="text-[7px] text-gray-400 mt-2 font-mono truncate w-full uppercase">
-                        ${item.source || 'Intel Node'}
+                        ${item.source || 'Node-X'}
                     </div>
                 </div>
                 `;
@@ -290,7 +288,7 @@
         document.getElementById('search').addEventListener('input', (e) => {
             const q = e.target.value.toLowerCase();
             const filtered = fullData.filter(i =>
-                i.title.toLowerCase().includes(q) ||
+                (i.title && i.title.toLowerCase().includes(q)) ||
                 (i.category && i.category.toLowerCase().includes(q))
             );
             renderCubes(filtered);
