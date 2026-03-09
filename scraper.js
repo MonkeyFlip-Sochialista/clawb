@@ -4,9 +4,12 @@ const path = require('path');
 
 const JSON_PATH = path.join(__dirname, 'updates.json');
 
-// Diccionario masivo de temas para alcanzar +1500 noticias
+// Diccionario de temas para alcanzar +1500 noticias
+// ENFOQUE CRÍTICO: OpenClow (corregido de OpenCloud)
 const TOPICS = [
-    "OpenCloud", "Sovereign Cloud", "Kubernetes", "Docker", "Open Source AI",
+    "OpenClow", "OpenClow hub", "OpenClow intel", "OpenClow platform",
+    "Azure", "AWS", "Google Cloud", "DigitalOcean", // Nubes públicas para contexto
+    "Sovereign Cloud", "Kubernetes", "Docker", "Open Source AI",
     "LLM", "Cybersecurity", "Zero Trust", "DevOps", "FinOps", "Rust Lang",
     "Golang", "Linux Kernel", "WebAssembly", "PostgreSQL", "ReactJS",
     "Machine Learning", "Neural Networks", "Neural Engine", "Quantum Computing",
@@ -19,7 +22,7 @@ const TOPICS = [
 
 async function fetchUrl(url) {
     return new Promise((resolve, reject) => {
-        https.get(url, { headers: { 'User-Agent': 'OpenCloudBot/3.0' } }, (res) => {
+        https.get(url, { headers: { 'User-Agent': 'OpenClowBot/5.0' } }, (res) => {
             let data = '';
             res.on('data', (chunk) => data += chunk);
             res.on('end', () => resolve(data));
@@ -39,44 +42,51 @@ function parseRSS(xml, category) {
         const title = titleMatch ? titleMatch[1] : "Trend detectado";
         const link = linkMatch ? linkMatch[1] : "#";
 
-        // Importancia base
-        const isImportant = title.toLowerCase().includes('eu') || title.toLowerCase().includes('sovereign');
-        const isOpenCloud = title.toLowerCase().includes('opencloud') || title.toLowerCase().includes('openclow');
+        // Importancia base: Prioridad absoluta a "OpenClow"
+        const isOpenClow = title.toLowerCase().includes('openclow');
+        const isImportant = title.toLowerCase().includes('eu') || title.toLowerCase().includes('sovereign') || isOpenClow;
 
         items.push({
             title: title,
-            summary: `Info automatizada de ${category}.`,
-            source: link.includes('://') ? new URL(link).hostname.replace('www.', '') : "Intel",
+            summary: `Información automatizada procesada para el Hub de OpenClow.`,
+            source: link.includes('://') ? new URL(link).hostname.replace('www.', '') : "Intel Source",
             link: link,
             category: category,
             important: isImportant,
-            openCloud: isOpenCloud
+            openClow: isOpenClow,
+            scrapedAt: new Date().toISOString()
         });
     }
     return items;
 }
 
 async function main() {
-    console.log(`[${new Date().toISOString()}] RECOPILACIÓN MEGA-MASIVA (+1500 ITEMS)...`);
+    console.log(`[${new Date().toISOString()}] RECOPILACIÓN MEGA-MASIVA (+1500 ITEMS) - ENFOQUE OPENCLOW...`);
 
     let allTrends = [];
 
-    // Iteramos por todos los tópicos
     for (const topic of TOPICS) {
         try {
-            console.log(`Buscando: ${topic}...`);
-            const url = `https://hnrss.org/newest?q=${encodeURIComponent(topic)}&count=50`;
+            console.log(`Rastreando fuente: ${topic}...`);
+            // Mayor volumen para el tema principal
+            const count = topic.toLowerCase() === 'openclow' ? 100 : 50;
+            const url = `https://hnrss.org/newest?q=${encodeURIComponent(topic)}&count=${count}`;
             const xml = await fetchUrl(url);
             const items = parseRSS(xml, topic);
             allTrends = allTrends.concat(items);
         } catch (e) {
-            console.warn(`Error en tópico ${topic}:`, e.message);
+            console.warn(`Error en fuente ${topic}:`, e.message);
         }
     }
 
-    let data = { liveTrends: [], lastUpdated: new Date().toISOString() };
+    let data = {
+        liveTrends: [],
+        lastUpdated: new Date().toISOString(),
+        buildVersion: "OPENCLOW_MASTER_V1",
+        deploymentTime: new Date().toLocaleString('es-ES'),
+        totalNodes: 0
+    };
 
-    // Persistencia: Cargamos anteriores para no perder el histórico
     if (fs.existsSync(JSON_PATH)) {
         try {
             const old = JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'));
@@ -84,17 +94,21 @@ async function main() {
         } catch (e) { }
     }
 
-    // Deduplicación por Título
     const seen = new Set();
     data.liveTrends = allTrends.filter(item => {
         const val = item.title.toLowerCase().trim();
         if (seen.has(val)) return false;
         seen.add(val);
         return true;
-    }).slice(0, 2000); // Límite generoso de 2000 cubos
+    })
+        // Colocamos OpenClow al principio
+        .sort((a, b) => (b.openClow ? 1 : 0) - (a.openClow ? 1 : 0))
+        .slice(0, 2000);
+
+    data.totalNodes = data.liveTrends.length;
 
     fs.writeFileSync(JSON_PATH, JSON.stringify(data, null, 2), 'utf8');
-    console.log(`ÉXITO: ${data.liveTrends.length} cubos sincronizados.`);
+    console.log(`ÉXITO: ${data.liveTrends.length} cubos sincronizados con enfoque en OpenClow.`);
 }
 
 main();

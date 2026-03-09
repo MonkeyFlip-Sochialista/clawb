@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mega Hub | 1500+ Intel Cubes</title>
+    <title>OpenClow Intel Hub | 1500+ Nodes</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -17,7 +17,8 @@
                         dark: { 950: '#040405', 900: '#0a0a0c', 800: '#141418' },
                         cyan: { 400: '#00f2ff' },
                         gold: { 400: '#ffd700' },
-                        pink: { 500: '#ff3366' }
+                        pink: { 500: '#ff3366' },
+                        crimson: { 600: '#dc143c' }
                     }
                 }
             }
@@ -68,25 +69,25 @@
             box-shadow: 0 10px 30px -10px rgba(0, 242, 255, 0.3);
         }
 
-        /* NOTICIAS DE OPENCLOUD (ESTILO ESPECIAL) */
-        .cube.opencloud-item {
-            border-color: #ffd700 !important;
-            background: linear-gradient(135deg, #0a0a0c, #4a3e0033);
-            box-shadow: inset 0 0 20px #ffd70011;
+        /* NOTICIAS DE OPENCLOW (ESTILO ROJO/NEÓN) */
+        .cube.openclow-item {
+            border-color: #ff3366 !important;
+            background: linear-gradient(135deg, #0a0a0c, #4a001a33);
+            box-shadow: inset 0 0 20px #ff336611 !important;
         }
 
-        .cube.opencloud-item:hover {
-            background: linear-gradient(135deg, #0a0a0c, #4a3e0066);
-            box-shadow: 0 0 40px #ffd70033;
+        .cube.openclow-item:hover {
+            background: linear-gradient(135deg, #0a0a0c, #4a001a66);
+            box-shadow: 0 0 40px #ff336633 !important;
         }
 
-        .cube.opencloud-item .cube-category {
-            color: #ffd700 !important;
+        .cube.openclow-item .cube-category {
+            color: #ff3366 !important;
         }
 
-        .cube.opencloud-item .cube-title {
+        .cube.openclow-item .cube-title {
             color: #fff !important;
-            text-shadow: 0 0 10px #ffd70044;
+            text-shadow: 0 0 10px #ff336644;
         }
 
         .cube-title {
@@ -110,18 +111,9 @@
             margin-bottom: 4px;
         }
 
-        .important-tag {
-            position: absolute;
-            top: 0;
-            right: 0;
-            border-style: solid;
-            border-width: 0 25px 25px 0;
-            border-color: transparent #ff3366 transparent transparent;
-        }
-
         #search {
             background: #0a0a0c;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
         }
 
@@ -132,6 +124,20 @@
             font-size: 10px;
             font-family: monospace;
             border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .update-banner {
+            background: #ff336611;
+            border: 1px solid #ff336633;
+            color: #ff3366;
+            font-size: 10px;
+            padding: 8px;
+            text-align: center;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -145,37 +151,40 @@
         class="max-w-[1600px] mx-auto p-6 md:p-10 mb-4 border-b border-white/5 relative z-10 flex flex-wrap items-center justify-between gap-6">
         <div>
             <h1 class="text-3xl md:text-5xl font-black tracking-tighter uppercase italic">
-                OPEN<span class="text-cyan-400">CLOUD</span> MEGA HUB
+                OPEN<span class="text-pink-500">CLOW</span> MEGA HUB
             </h1>
-            <p class="text-[10px] font-bold text-cyan-400 uppercase tracking-[0.4em] mt-2">
+            <p class="text-[10px] font-bold text-pink-500 uppercase tracking-[0.4em] mt-2">
                 Massive Intel Network | <span id="node-count-top">0</span> Active Nodes
             </p>
         </div>
 
         <div class="flex-grow max-w-2xl">
-            <input type="text" id="search" placeholder="Filtrar por arquitectura, sistema o noticia..."
-                class="w-full py-3 px-6 rounded-xl outline-none focus:border-cyan-400 transition-all font-bold text-sm">
+            <input type="text" id="search" placeholder="Buscar en OpenClow Hub..."
+                class="w-full py-3 px-6 rounded-xl outline-none focus:border-pink-500 transition-all font-bold text-sm">
         </div>
 
-        <div class="flex flex-col items-end gap-2">
-            <div class="stats-chip text-cyan-400">STATUS: SYNCED [4H_LOCK]</div>
-            <div id="last-update" class="stats-chip text-gray-500">REF: --:--</div>
+        <div class="flex flex-col items-end gap-2 text-right">
+            <div class="stats-chip text-pink-500">STATUS: OPENCLOW_MASTER_ACTIVE</div>
+            <div id="file-timestamp" class="stats-chip text-white font-bold border-white/20">FILE_SYNC: --:--</div>
         </div>
     </header>
 
-    <main class="max-w-[1800px] mx-auto relative z-10">
+    <main class="max-w-[1800px] mx-auto relative z-10 px-6">
+        <div id="deployment-info" class="update-banner">
+            FILE_UPLOAD_TIME: <span id="deploy-time">09/03/2026 13:36:08</span>
+        </div>
+
         <div id="cube-grid" class="cube-grid">
-            <!-- Los miles de cubos se inyectan aquí -->
             <div
-                class="col-span-full py-40 text-center animate-pulse text-cyan-400 font-bold tracking-widest uppercase">
-                Iniciando Secuencia de Carga Masiva...
+                class="col-span-full py-40 text-center animate-pulse text-pink-500 font-bold tracking-widest uppercase">
+                Synchronizing High Density Intel Nodes...
             </div>
         </div>
     </main>
 
     <footer class="mt-20 py-10 border-t border-white/5 text-center">
         <div class="text-[9px] tracking-[0.6em] font-black uppercase text-gray-700 mb-4">
-            Autonomous Massive Hub v5.0 | Total Nodes: <span id="node-count-footer">0</span>
+            Autonomous Massive Hub v1.0 | OpenClow Total Nodes: <span id="node-count-footer">0</span>
         </div>
     </footer>
 
@@ -187,54 +196,53 @@
             const grid = document.getElementById('cube-grid');
 
             try {
-                // Fetch dinámico del archivo gigante
                 const response = await fetch('updates.json?t=' + Date.now());
-                if (!response.ok) throw new Error("Net Error");
+                if (!response.ok) throw new Error("Sync Failed");
                 const data = await response.json();
 
                 fullData = data.liveTrends || [];
 
-                // Actualizar contadores
-                document.getElementById('node-count-top').innerText = fullData.length;
-                document.getElementById('node-count-footer').innerText = fullData.length;
+                if (data.deploymentTime) {
+                    document.getElementById('deploy-time').innerText = data.deploymentTime;
+                }
 
                 if (data.lastUpdated) {
                     const date = new Date(data.lastUpdated);
-                    document.getElementById('last-update').innerText = `SYNC: ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+                    document.getElementById('file-timestamp').innerText = `LAST_SYNC: ${date.toLocaleString('es-ES')}`;
                 }
+
+                document.getElementById('node-count-top').innerText = fullData.length;
+                document.getElementById('node-count-footer').innerText = fullData.length;
 
                 renderCubes(fullData);
 
             } catch (err) {
-                grid.innerHTML = `<div class="col-span-full py-40 text-center text-red-500 font-bold bg-red-500/5 border border-dashed border-red-500/20 rounded-3xl m-10">
-                    <p class="text-2xl mb-4">ERROR DE CONEXIÓN AL HUB</p>
-                    <p class="text-sm text-gray-500">Asegúrate de ejecutar START_PLATFORM.bat para habilitar la sincronización local.</p>
+                grid.innerHTML = `<div class="col-span-full py-40 text-center text-pink-500 font-bold bg-pink-500/5 border border-dashed border-pink-500/20 rounded-3xl m-10">
+                    <p class="text-2xl mb-4">OPENCLOW HUB SYNC ERROR</p>
+                    <p class="text-sm text-gray-500">Enable local HTTP server to sync data.</p>
                 </div>`;
             }
         }
 
         function renderCubes(items) {
             const grid = document.getElementById('cube-grid');
-            // Optimizamos renderizado para miles de items usando innerHTML de golpe
             const html = items.map(item => {
                 const target = item.link && item.link !== '#' ? item.link : `https://www.google.com/search?q=${encodeURIComponent(item.title)}`;
-                const isOpenCloud = item.openCloud === true || item.title.toLowerCase().includes('opencloud') || item.title.toLowerCase().includes('openclow');
+                const isOC = item.openClow === true || item.title.toLowerCase().includes('openclow');
 
                 return `
-                <div class="cube ${isOpenCloud ? 'opencloud-item' : ''}" onclick="window.open('${target}', '_blank')">
+                <div class="cube ${isOC ? 'openclow-item' : ''}" onclick="window.open('${target}', '_blank')">
                     <div class="cube-category">${item.category || 'INTEL'}</div>
                     <div class="cube-title">${item.title}</div>
-                    <div class="text-[7px] text-gray-600 mt-2 font-mono truncate w-full uppercase">
+                    <div class="text-[7px] text-gray-400 mt-2 font-mono truncate w-full uppercase">
                         ${item.source || 'Node-X'}
                     </div>
-                    ${item.important ? '<div class="important-tag"></div>' : ''}
                 </div>
                 `;
             }).join('');
             grid.innerHTML = html;
         }
 
-        // Búsqueda instantánea ultra-rápida
         document.getElementById('search').addEventListener('input', (e) => {
             const q = e.target.value.toLowerCase();
             const filtered = fullData.filter(i =>
