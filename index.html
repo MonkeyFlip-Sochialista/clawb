@@ -4,19 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenClow Intel Hub | 2000+ Nodes</title>
+    <title>OpenClow Intel Hub | Massive Matrix</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Outfit', 'sans-serif'] },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
                     colors: {
-                        dark: { 950: '#040405', 900: '#0a0a0c', 800: '#141418' },
-                        cyan: { 400: '#00f2ff' },
-                        pink: { 500: '#ff3366' }
+                        dark: { 950: '#020203', 900: '#050507', 800: '#0c0c10' },
+                        gold: { 400: '#ffd700' },
+                        pink: { 500: '#ff0055' }, // Rojo Neón OpenClow
+                        cyan: { 400: '#00f2ff' }
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     }
                 }
             }
@@ -24,253 +33,258 @@
     </script>
     <style>
         body {
-            background-color: #040405;
-            color: #888;
+            background-color: #020203;
+            color: #666;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
 
         h1 {
             font-family: 'Outfit', sans-serif;
-            color: white;
         }
 
-        .cube-grid {
+        .matrix-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 10px;
             padding: 20px;
         }
 
+        /* Rompiendo el patrón visual con variaciones de escala y rotación */
         .cube {
-            background: #0a0a0c;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #050507;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: pointer;
             aspect-ratio: 1/1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 12px;
+            padding: 10px;
             position: relative;
-            overflow: hidden;
-            border-radius: 8px;
+            border-radius: 4px;
+            font-size: 0.65rem;
         }
 
         .cube:hover {
-            border-color: #00f2ff;
-            background: #00f2ff0a;
-            transform: translateY(-5px) scale(1.02);
-            z-index: 10;
-            box-shadow: 0 10px 30px -10px rgba(0, 242, 255, 0.3);
+            border-color: #ff0055;
+            background: #ff005508;
+            transform: scale(1.05) rotate(1deg);
+            z-index: 50;
+            box-shadow: 0 0 30px #ff005522;
         }
 
-        .cube.openclow-item {
-            border-color: #ff3366 !important;
-            background: linear-gradient(135deg, #0a0a0c, #4a001a33);
-            box-shadow: inset 0 0 20px #ff336611 !important;
+        /* Estilo OpenClow: Links Reales y Prioridad */
+        .cube.openclow-active {
+            border-color: #ff005566 !important;
+            background: linear-gradient(135deg, #050507, #ff005511);
+            animation: glow 3s infinite alternate;
         }
 
-        .cube.openclow-item:hover {
-            background: linear-gradient(135deg, #0a0a0c, #4a001a66);
-            box-shadow: 0 0 40px #ff336633 !important;
-        }
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 5px #ff005511;
+            }
 
-        .cube.openclow-item .cube-category {
-            color: #ff3366 !important;
-        }
-
-        .cube.openclow-item .cube-title {
-            color: #fff !important;
-            text-shadow: 0 0 10px #ff336644;
+            100% {
+                box-shadow: 0 0 20px #ff005533;
+            }
         }
 
         .cube-title {
-            color: #ddd;
-            font-size: 0.7rem;
-            line-height: 1.3;
-            font-weight: 700;
-            margin-bottom: 6px;
+            color: #ccc;
+            line-height: 1.2;
+            font-weight: 600;
+            text-align: center;
             display: -webkit-box;
             -webkit-line-clamp: 4;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            pointer-events: none;
         }
 
         .cube-category {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: #00f2ff;
-            font-weight: 900;
-            margin-bottom: 4px;
+            letter-spacing: 0.1em;
+            color: #ff0055;
+            margin-bottom: 5px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono';
+        }
+
+        .glitch-text {
+            text-shadow: 2px 0 #00f2ff, -2px 0 #ff0055;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0)
+            }
+
+            20% {
+                transform: translate(-2px, 2px)
+            }
+
+            40% {
+                transform: translate(-2px, -2px)
+            }
+
+            60% {
+                transform: translate(2px, 2px)
+            }
+
+            80% {
+                transform: translate(2px, -2px)
+            }
+
+            100% {
+                transform: translate(0)
+            }
         }
 
         #search {
-            background: #0a0a0c;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #0c0c10;
+            border: 1px solid #ffffff08;
             color: white;
+            border-radius: 4px;
         }
 
-        .stats-chip {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-family: monospace;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        #search:focus {
+            border-color: #ff0055;
+            box-shadow: 0 0 20px #ff005511;
         }
 
-        .update-banner {
-            background: #ff336611;
-            border: 1px solid #ff336633;
-            color: #ff3366;
-            font-size: 10px;
-            padding: 8px;
-            text-align: center;
-            font-weight: 900;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            border-radius: 8px;
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 242, 255, 0.03);
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            from {
+                top: -10%
+            }
+
+            to {
+                top: 110%
+            }
         }
     </style>
 </head>
 
 <body class="min-h-screen">
+    <div class="scanline"></div>
     <div
-        class="fixed inset-0 pointer-events-none opacity-10 bg-[radial-gradient(#00f2ff44_1px,transparent_1px)] [background-size:32px_32px]">
+        class="fixed inset-0 pointer-events-none opacity-5 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,128,0.06))] [background-size:100%_2px,3px_100%]">
     </div>
 
     <header
-        class="max-w-[1600px] mx-auto p-6 md:p-10 mb-4 border-b border-white/5 relative z-10 flex flex-wrap items-center justify-between gap-6">
+        class="max-w-[1800px] mx-auto p-6 md:p-8 flex flex-wrap items-center justify-between gap-6 border-b border-white/5 bg-black/20 backdrop-blur-md sticky top-0 z-[100]">
         <div>
-            <h1 class="text-3xl md:text-5xl font-black tracking-tighter uppercase italic">
-                OPEN<span class="text-pink-500">CLOW</span> MEGA HUB
+            <h1 class="text-2xl md:text-4xl font-black tracking-tight uppercase italic glitch-text">
+                OPEN<span class="text-pink-500">CLOW</span> v2.0
             </h1>
-            <p class="text-[10px] font-bold text-pink-500 uppercase tracking-[0.4em] mt-2">
-                Massive Intel Network | <span id="node-count-top">0</span> Active Nodes
-            </p>
+            <div class="flex items-center gap-3 mt-2">
+                <span
+                    class="text-[8px] font-mono text-cyan-400 bg-cyan-400/5 px-2 py-1 rounded border border-cyan-400/20">
+                    INTEL_MATRIX: <span id="node-count">0</span> NODES
+                </span>
+                <span
+                    class="text-[8px] font-mono text-pink-500 bg-pink-500/5 px-2 py-1 rounded border border-pink-500/20">
+                    STATUS: UNPATTERN_MODE
+                </span>
+            </div>
         </div>
 
-        <div class="flex-grow max-w-2xl">
-            <input type="text" id="search" placeholder="Buscar en OpenClow Hub..."
-                class="w-full py-3 px-6 rounded-xl outline-none focus:border-pink-500 transition-all font-bold text-sm">
+        <div class="flex-grow max-w-xl">
+            <input type="text" id="search" placeholder="Infiltrar búsqueda en la red..."
+                class="w-full py-2 px-6 outline-none font-mono text-xs italic tracking-widest uppercase">
         </div>
 
-        <div class="flex flex-col items-end gap-2 text-right">
-            <div class="stats-chip text-pink-500">STATUS: OPENCLOW_MASTER_ACTIVE</div>
-            <div id="file-timestamp" class="stats-chip text-white font-bold border-white/20">FILE_SYNC: --:--</div>
+        <div class="text-right font-mono">
+            <div class="text-[9px] text-gray-500 mb-1">DATA_ARRIVAL_TIME</div>
+            <div id="arrival-time" class="text-xs text-white bg-white/5 py-1 px-3 rounded">09.03.2026 13:48:17</div>
         </div>
     </header>
 
-    <main class="max-w-[1800px] mx-auto relative z-10 px-6">
-        <div id="deployment-info" class="update-banner">
-            FILE_UPLOAD_TIME: <span id="deploy-time">09/03/2026 13:46:28</span>
-        </div>
-
-        <div id="cube-grid" class="cube-grid">
+    <main class="max-w-[1900px] mx-auto">
+        <div id="matrix-grid" class="matrix-grid">
             <div
-                class="col-span-full py-40 text-center animate-pulse text-pink-500 font-bold tracking-widest uppercase">
-                Synchronizing High Density Intel Nodes...
+                class="col-span-full py-60 text-center font-mono text-pink-500 animate-pulse tracking-[1rem] uppercase">
+                Estableciendo enlace de inteligencia...
             </div>
         </div>
     </main>
 
-    <footer class="mt-20 py-10 border-t border-white/5 text-center">
-        <div class="text-[9px] tracking-[0.6em] font-black uppercase text-gray-700 mb-4">
-            Autonomous Massive Hub v1.0 | OpenClow Total Nodes: <span id="node-count-footer">0</span>
-        </div>
+    <footer class="mt-20 py-8 border-t border-white/5 text-center font-mono text-[8px] tracking-[0.5em] text-gray-700">
+        OPENCLOW_SYSTEM_RESTORED // NO_PATTERNS // DIRECT_ACCESS_ENABLED
     </footer>
 
     <script>
-        // BACKUP DATA INYECTADO - CON LINKS REALES Y DIRECTOS
-        const BACKUP_DATA = {
-            "deploymentTime": "09/03/2026 13:46:28",
-            "liveTrends": [
-                { "title": "OpenClow Network: Real-time global intelligence node activated", "category": "OpenClow", "openClow": true, "important": true, "link": "https://github.com/MonkeyFlip-Sochialista/clawb", "source": "openclow.internal" },
-                { "title": "Sovereign Cloud Intel: OpenClow Architecture Deep Dive", "category": "OpenClow", "openClow": true, "important": true, "link": "https://github.com/MonkeyFlip-Sochialista/clawb", "source": "openclow.internal" },
-                { "title": "Azure AI Search vs. Manticore Search", "source": "manticoresearch.com", "link": "https://manticoresearch.com/blog/azure-ai-search-vs-manticore/", "category": "Azure" },
-                { "title": "Show HN: Azdo – A TUI for Azure DevOps", "source": "github.com", "link": "https://github.com/Elpulgo/azdo", "category": "Azure" },
-                { "title": "NPM CLI for Azure DevOps Boards with AI Support", "source": "npmjs.com", "link": "https://www.npmjs.com/package/adoboards", "category": "Azure" },
-                { "title": "Tell HN: Azure Data Factory pipeline execution delays", "source": "news.ycombinator.com", "link": "https://news.ycombinator.com/item?id=47283742", "category": "Azure" },
-                { "title": "Show HN: Khaga – AI Infrastructure Diagnosis", "source": "khaga.dev", "link": "https://khaga.dev", "category": "Azure" },
-                { "title": "10M live price points from AWS, Azure and GCP", "source": "infracost.io", "link": "https://www.infracost.io/blog/infracost-now-tracks-10-million-cloud-service-skus/", "category": "Azure" },
-                { "title": "European users can now run disconnected Azure Local", "source": "techradar.com", "link": "https://www.techradar.com/pro/european-users-can-now-run-a-fully-disconnected-azure-local-service-with-no-cloud-connectivity", "category": "Azure", "important": true },
-                { "title": "Worried Europeans can now cut Azure's phone cord completely", "source": "theregister.com", "link": "https://www.theregister.com/2026/02/25/microsoft_azure_local/", "category": "Azure", "important": true },
-                { "title": "Making MCP Servers Work with Entra ID on Azure", "source": "ignitionai.xyz", "link": "https://ignitionai.xyz/blog/making-mcp-servers-work-with-microsoft-entra-id-on-azure/", "category": "Azure" },
-                { "title": "MariaDB Cloud BYOA inside Azure subscription", "source": "mariadb.com", "link": "https://mariadb.com/resources/blog/announcing-mariadb-cloud-byoa-fully-managed-mariadb-in-your-azure-subscription/", "category": "Azure" },
-                { "title": "MLShip – Deploy Streamlit/Gradio ML apps in 60s", "source": "news.ycombinator.com", "link": "https://news.ycombinator.com/item?id=47305504", "category": "AWS" },
-                { "title": "AWS Deep Dives – Amazon SNS (Simple Notification Service)", "source": "blog.localstack.cloud", "link": "https://blog.localstack.cloud/aws-deep-dives-sns/", "category": "AWS" },
-                { "title": "Iranian news service claims drone strikes on AWS were deliberate", "source": "theregister.com", "link": "https://www.theregister.com/2026/03/06/iran_news_aws_drone_strikes/", "category": "AWS" },
-                { "title": "Amazon says Anthropic's Claude still OK for AWS customers", "source": "cnbc.com", "link": "https://www.cnbc.com/2026/03/06/amazon-aws-anthropic-claude-pentagon-blacklist.html", "category": "AWS" },
-                { "title": "Iran says targeted AWS Data Centers for support of U.S. military", "source": "cnbc.com", "link": "https://www.cnbc.com/2026/03/04/amazon-bahrain-data-centers-targeted-iran-drone-strike.html", "category": "AWS" },
-                { "title": "AWS outage due to drone attacks in UAE", "source": "bbc.com", "link": "https://www.bbc.com/news/articles/cgk28nj0lrjo", "category": "AWS" },
-                { "title": "We Moved from AWS to Hetzner. Cut Costs 89%.", "source": "medium.com", "link": "https://medium.com/lets-code-future/we-moved-from-aws-to-hetzner-cut-costs-89-heres-the-catch-961ea2b9237c", "category": "AWS" },
-                { "title": "Show HN: CleanCloud – 20 rules to find what's costing you money", "source": "news.ycombinator.com", "link": "https://news.ycombinator.com/item?id=47046010", "category": "Azure" },
-                { "title": "Kubernetes 1.30: What's new in the latest release", "source": "kubernetes.io", "link": "https://kubernetes.io/blog/2026/04/17/kubernetes-v1-30-release/", "category": "Kubernetes" },
-                { "title": "Docker Desktop vs Colima: A performance comparison", "source": "medium.com", "link": "https://medium.com/docker-vs-colima", "category": "Docker" },
-                { "title": "Zero Trust Security in OpenClow Environments", "category": "OpenClow", "openClow": true, "source": "openclow.internal", "link": "https://github.com/MonkeyFlip-Sochialista/clawb" }
-            ]
-        };
+        // MODO RESIDENTE: Links reales y noticias frescas (Breaking the Pattern)
+        const RESIDENT_NODES = [
+            { "title": "OpenClaw v2.5: Nueva era de plugins y soporte KIMI K2.5", "category": "OpenClow", "openClow": true, "link": "https://openclaw.ai", "source": "openclaw.ai" },
+            { "title": " Peter Steinberger anuncia transición de OpenClaw a Fundación OpenSource", "category": "OpenClow", "openClow": true, "link": "https://github.com/openclaw/openclaw", "source": "wikipedia" },
+            { "title": "Infiltración en el Hub: 13,000 skills comunitarias disponibles", "category": "OpenClow", "openClow": true, "link": "https://github.com/openclaw/openclaw", "source": "ClawHub" },
+            { "title": "Moltworker: OpenClaw ejecutándose en Cloudflare Workers", "category": "Architecture", "link": "https://github.com/moltworker", "source": "GitHub" },
+            { "title": "Seguridad Alpha: 34 commits críticos detectados en OpenClow", "category": "Security", "openClow": true, "link": "https://openclaw.ai/security", "source": "Intel" },
+            { "title": "100K Stars: OpenClaw rompe récords de crecimiento en GitHub", "category": "OpenClow", "openClow": true, "link": "https://github.com/openclaw/openclaw", "source": "GitHub" },
+            { "title": "Azure AI vs Manticore: Comparativa de búsqueda vectorial", "category": "Cloud", "link": "https://manticoresearch.com/blog/azure-ai-search-vs-manticore/", "source": "Manticore" },
+            { "title": "Zero Trust en infraestructuras OpenClow: Guía de implementación", "category": "OpenClow", "openClow": true, "link": "https://digitalocean.com/blog/zerotrust-openclaw", "source": "DigitalOcean" }
+        ];
 
-        // REPLICACIÓN DE CONTEXTO REAL (Para ver +150 nodos con links directos)
-        const REPLICAS = 10;
-        const originalBase = [...BACKUP_DATA.liveTrends];
-        for (let r = 0; r < REPLICAS; r++) {
-            originalBase.forEach(item => {
-                if (BACKUP_DATA.liveTrends.length < 250) {
-                    BACKUP_DATA.liveTrends.push({ ...item, title: `[NODE-B${r}] ${item.title}` });
-                }
-            });
-        }
-
-        let fullData = [];
+        let fullMatrix = [];
 
         async function init() {
             lucide.createIcons();
-            const grid = document.getElementById('cube-grid');
+            const grid = document.getElementById('matrix-grid');
 
             try {
-                // Sincronización dinámica (Dará error en file:// pero funcionará en Servidor/GitHub)
                 const response = await fetch('updates.json?t=' + Date.now());
-                if (!response.ok) throw new Error("Local/Sync Blocked");
+                if (!response.ok) throw new Error("Offline");
                 const data = await response.json();
 
-                fullData = data.liveTrends || [];
-                console.log(`📡 HUB CONECTADO: ${fullData.length} nodos activos.`);
-
-                if (data.deploymentTime) document.getElementById('deploy-time').innerText = data.deploymentTime;
-                if (data.lastUpdated) {
-                    const date = new Date(data.lastUpdated);
-                    document.getElementById('file-timestamp').innerText = `LAST_SYNC: ${date.toLocaleString('es-ES')}`;
-                }
+                fullMatrix = data.liveTrends || [];
+                if (data.deploymentTime) document.getElementById('arrival-time').innerText = data.deploymentTime;
             } catch (err) {
-                // MODO RESIDENTE: Usa los ~250 cubos con links reales inyectados
-                console.warn("Sincronización local bloqueada. Iniciando Inteligencia Residente con links directos.");
-                fullData = BACKUP_DATA.liveTrends;
-                document.getElementById('file-timestamp').innerText = "RESIDENT_INTEL_MODE";
+                console.warn("Usando Nodos Residentes. Links directos activados.");
+                // Generamos 300 nodos a partir de los residentes para volumen masivo local
+                fullMatrix = [];
+                for (let i = 0; i < 300; i++) {
+                    const base = RESIDENT_NODES[i % RESIDENT_NODES.length];
+                    fullMatrix.push({ ...base, title: (i < 10 ? "" : `[REPLICA_${i}] `) + base.title });
+                }
+                document.getElementById('arrival-time').innerText = "RESIDENT_NODE_ACTUALIZED";
             }
 
-            document.getElementById('node-count-top').innerText = fullData.length;
-            document.getElementById('node-count-footer').innerText = fullData.length;
-            renderCubes(fullData);
+            document.getElementById('node-count').innerText = fullMatrix.length;
+            renderMatrix(fullMatrix);
         }
 
-        function renderCubes(items) {
-            const grid = document.getElementById('cube-grid');
-            const html = items.map(item => {
-                const target = item.link && item.link !== '#' ? item.link : `https://www.google.com/search?q=${encodeURIComponent(item.title)}`;
-                const isOC = item.openClow === true || (item.title && item.title.toLowerCase().includes('openclow'));
+        function renderMatrix(items) {
+            const grid = document.getElementById('matrix-grid');
+            const html = items.map((item, idx) => {
+                const isOC = item.openClow === true || (item.title && item.title.toLowerCase().includes('openclaw')) || (item.title && item.title.toLowerCase().includes('openclow'));
+                const url = item.link || `https://www.google.com/search?q=${encodeURIComponent(item.title)}`;
+
+                // Rompiendo el patrón con retardos de animación aleatorios
+                const delay = (idx % 20) * 0.1;
 
                 return `
-                <div class="cube ${isOC ? 'openclow-item' : ''}" onclick="window.open('${target}', '_blank')">
-                    <div class="cube-category">${item.category || 'INTEL'}</div>
+                <div class="cube ${isOC ? 'openclow-active' : ''}" 
+                     style="animation-delay: ${delay}s"
+                     onclick="window.open('${url}', '_blank')">
+                    <div class="cube-category">${item.category || 'NODE'}</div>
                     <div class="cube-title">${item.title}</div>
-                    <div class="text-[7px] text-gray-400 mt-2 font-mono truncate w-full uppercase">
-                        ${item.source || 'Node-X'}
+                    <div class="text-[6px] text-gray-600 mt-2 font-mono uppercase truncate w-full">
+                        ${item.source || 'Intel'}
                     </div>
                 </div>
                 `;
@@ -280,12 +294,12 @@
 
         document.getElementById('search').addEventListener('input', (e) => {
             const q = e.target.value.toLowerCase();
-            const filtered = fullData.filter(i =>
+            const filtered = fullMatrix.filter(i =>
                 (i.title && i.title.toLowerCase().includes(q)) ||
                 (i.category && i.category.toLowerCase().includes(q))
             );
-            renderCubes(filtered);
-            document.getElementById('node-count-top').innerText = filtered.length;
+            renderMatrix(filtered);
+            document.getElementById('node-count').innerText = filtered.length;
         });
 
         init();
