@@ -1,0 +1,29 @@
+name: Massive Feed Update
+on:
+  schedule:
+    - cron: '0 */4 * * *' # Cada 4 horas
+  workflow_dispatch: # Permite ejecutarlo manualmente desde GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Run Massive Scraper
+        run: node scraper.js
+        
+      - name: Commit and Push
+        run: |
+          git config --global user.name "OpenCloud Bot"
+          git config --global user.email "bot@opencloud.eu"
+          git add updates.json
+          git commit -m "Auto-update: Massive News Feed Sync [1500+ items]" || exit 0
+          git push

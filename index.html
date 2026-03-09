@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mega Hub | 1500+ Intel Cubes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Outfit', 'sans-serif'] },
+                    colors: {
+                        dark: { 950: '#040405', 900: '#0a0a0c', 800: '#141418' },
+                        cyan: { 400: '#00f2ff' },
+                        gold: { 400: '#ffd700' },
+                        pink: { 500: '#ff3366' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #040405;
+            color: #888;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            color: white;
+        }
+
+        .cube-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+            padding: 20px;
+        }
+
+        .cube {
+            background: #0a0a0c;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            aspect-ratio: 1/1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 12px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .cube:hover {
+            border-color: #00f2ff;
+            background: #00f2ff0a;
+            transform: translateY(-5px) scale(1.02);
+            z-index: 10;
+            box-shadow: 0 10px 30px -10px rgba(0, 242, 255, 0.3);
+        }
+
+        /* NOTICIAS DE OPENCLOUD (ESTILO ESPECIAL) */
+        .cube.opencloud-item {
+            border-color: #ffd700 !important;
+            background: linear-gradient(135deg, #0a0a0c, #4a3e0033);
+            box-shadow: inset 0 0 20px #ffd70011;
+        }
+
+        .cube.opencloud-item:hover {
+            background: linear-gradient(135deg, #0a0a0c, #4a3e0066);
+            box-shadow: 0 0 40px #ffd70033;
+        }
+
+        .cube.opencloud-item .cube-category {
+            color: #ffd700 !important;
+        }
+
+        .cube.opencloud-item .cube-title {
+            color: #fff !important;
+            text-shadow: 0 0 10px #ffd70044;
+        }
+
+        .cube-title {
+            color: #ddd;
+            font-size: 0.7rem;
+            line-height: 1.3;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .cube-category {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #00f2ff;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+
+        .important-tag {
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-style: solid;
+            border-width: 0 25px 25px 0;
+            border-color: transparent #ff3366 transparent transparent;
+        }
+
+        #search {
+            background: #0a0a0c;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .stats-chip {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-family: monospace;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+    <div
+        class="fixed inset-0 pointer-events-none opacity-10 bg-[radial-gradient(#00f2ff44_1px,transparent_1px)] [background-size:32px_32px]">
+    </div>
+
+    <header
+        class="max-w-[1600px] mx-auto p-6 md:p-10 mb-4 border-b border-white/5 relative z-10 flex flex-wrap items-center justify-between gap-6">
+        <div>
+            <h1 class="text-3xl md:text-5xl font-black tracking-tighter uppercase italic">
+                OPEN<span class="text-cyan-400">CLOUD</span> MEGA HUB
+            </h1>
+            <p class="text-[10px] font-bold text-cyan-400 uppercase tracking-[0.4em] mt-2">
+                Massive Intel Network | <span id="node-count-top">0</span> Active Nodes
+            </p>
+        </div>
+
+        <div class="flex-grow max-w-2xl">
+            <input type="text" id="search" placeholder="Filtrar por arquitectura, sistema o noticia..."
+                class="w-full py-3 px-6 rounded-xl outline-none focus:border-cyan-400 transition-all font-bold text-sm">
+        </div>
+
+        <div class="flex flex-col items-end gap-2">
+            <div class="stats-chip text-cyan-400">STATUS: SYNCED [4H_LOCK]</div>
+            <div id="last-update" class="stats-chip text-gray-500">REF: --:--</div>
+        </div>
+    </header>
+
+    <main class="max-w-[1800px] mx-auto relative z-10">
+        <div id="cube-grid" class="cube-grid">
+            <!-- Los miles de cubos se inyectan aquí -->
+            <div
+                class="col-span-full py-40 text-center animate-pulse text-cyan-400 font-bold tracking-widest uppercase">
+                Iniciando Secuencia de Carga Masiva...
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-20 py-10 border-t border-white/5 text-center">
+        <div class="text-[9px] tracking-[0.6em] font-black uppercase text-gray-700 mb-4">
+            Autonomous Massive Hub v5.0 | Total Nodes: <span id="node-count-footer">0</span>
+        </div>
+    </footer>
+
+    <script>
+        let fullData = [];
+
+        async function init() {
+            lucide.createIcons();
+            const grid = document.getElementById('cube-grid');
+
+            try {
+                // Fetch dinámico del archivo gigante
+                const response = await fetch('updates.json?t=' + Date.now());
+                if (!response.ok) throw new Error("Net Error");
+                const data = await response.json();
+
+                fullData = data.liveTrends || [];
+
+                // Actualizar contadores
+                document.getElementById('node-count-top').innerText = fullData.length;
+                document.getElementById('node-count-footer').innerText = fullData.length;
+
+                if (data.lastUpdated) {
+                    const date = new Date(data.lastUpdated);
+                    document.getElementById('last-update').innerText = `SYNC: ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+                }
+
+                renderCubes(fullData);
+
+            } catch (err) {
+                grid.innerHTML = `<div class="col-span-full py-40 text-center text-red-500 font-bold bg-red-500/5 border border-dashed border-red-500/20 rounded-3xl m-10">
+                    <p class="text-2xl mb-4">ERROR DE CONEXIÓN AL HUB</p>
+                    <p class="text-sm text-gray-500">Asegúrate de ejecutar START_PLATFORM.bat para habilitar la sincronización local.</p>
+                </div>`;
+            }
+        }
+
+        function renderCubes(items) {
+            const grid = document.getElementById('cube-grid');
+            // Optimizamos renderizado para miles de items usando innerHTML de golpe
+            const html = items.map(item => {
+                const target = item.link && item.link !== '#' ? item.link : `https://www.google.com/search?q=${encodeURIComponent(item.title)}`;
+                const isOpenCloud = item.openCloud === true || item.title.toLowerCase().includes('opencloud') || item.title.toLowerCase().includes('openclow');
+
+                return `
+                <div class="cube ${isOpenCloud ? 'opencloud-item' : ''}" onclick="window.open('${target}', '_blank')">
+                    <div class="cube-category">${item.category || 'INTEL'}</div>
+                    <div class="cube-title">${item.title}</div>
+                    <div class="text-[7px] text-gray-600 mt-2 font-mono truncate w-full uppercase">
+                        ${item.source || 'Node-X'}
+                    </div>
+                    ${item.important ? '<div class="important-tag"></div>' : ''}
+                </div>
+                `;
+            }).join('');
+            grid.innerHTML = html;
+        }
+
+        // Búsqueda instantánea ultra-rápida
+        document.getElementById('search').addEventListener('input', (e) => {
+            const q = e.target.value.toLowerCase();
+            const filtered = fullData.filter(i =>
+                i.title.toLowerCase().includes(q) ||
+                (i.category && i.category.toLowerCase().includes(q))
+            );
+            renderCubes(filtered);
+            document.getElementById('node-count-top').innerText = filtered.length;
+        });
+
+        init();
+    </script>
+</body>
+
+</html>
